@@ -1,0 +1,38 @@
+HEALTHCAREAI - WINDOWS DEVELOPMENT / GITHUB ACTIONS DEPLOY
+
+1) Giải nén thư mục HealthCareAI_Cloudflare.
+2) Tạo repository GitHub mới (nên để Private).
+3) Mở CMD trong thư mục gốc dự án (cùng cấp package.json, pyproject.toml, wrangler.jsonc).
+4) Chạy:
+   git init
+   git add .
+   git status
+   git commit -m "Prepare HealthCareAI Cloudflare project"
+   git branch -M main
+   git remote add origin https://github.com/USERNAME/HealthCareAI-Cloudflare.git
+   git push -u origin main
+
+   Thay USERNAME bằng tên tài khoản GitHub. Nếu Git đã được khởi tạo thì không chạy lại git init.
+   Trước khi commit, xem `git status` và chắc chắn KHÔNG có .env, firebase-service-account.json,
+   key.txt, db.sqlite3, .venv, node_modules hoặc frontend/dist.
+
+5) GitHub > repository > Settings > Secrets and variables > Actions:
+   Tạo:
+   - CLOUDFLARE_API_TOKEN
+   - CLOUDFLARE_ACCOUNT_ID
+   - DJANGO_SECRET_KEY
+
+   Tuỳ chọn cho AI:
+   - AI_API_BASE_URL
+   - AI_API_KEY
+   - AI_MODEL
+
+6) GitHub > Actions > HealthCareAI - Validate and Deploy:
+   - Chạy tự động khi push main để build/validate.
+   - Chỉ chọn Run workflow và deploy=true khi D1 schema đã được khởi tạo/kiểm tra.
+
+LƯU Ý:
+- Không đưa token/API key/Firebase service account vào source hoặc commit.
+- Workflow chưa migrate D1, không import SQLite local.
+- Chưa xác nhận Firebase Push và AI Chat hoạt động production trên Python Workers.
+- Không bật deploy trước khi xác nhận schema D1.

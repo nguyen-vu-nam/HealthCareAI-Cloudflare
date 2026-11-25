@@ -1,0 +1,12 @@
+Frontend build fix
+
+The frontend was missing React TypeScript declarations. Added:
+- @types/react
+- @types/react-dom
+
+After extracting this archive, run from the project root:
+  npm --prefix frontend install
+  npm --prefix frontend run build
+
+Do not run npm audit fix --force blindly; it can introduce breaking dependency upgrades.
+The protobufjs install-script warning is separate from the TypeScript build error.

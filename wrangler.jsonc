@@ -1,0 +1,34 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "healthcareai",
+  "main": "backend/worker.py",
+  "compatibility_date": "2026-11-26",
+  "compatibility_flags": [
+    "python_workers"
+  ],
+  "assets": {
+    "directory": "./frontend/dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": [
+      "/api/*",
+      "/admin/*"
+    ]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "healthcareai-db",
+      "database_id": "a5ef2f28-6b9f-4c87-9d27-0553fe8d5998"
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "* * * * *"
+    ]
+  },
+  "vars": {
+    "DJANGO_DEBUG": "false",
+    "DJANGO_ALLOWED_HOSTS": ".workers.dev"
+  }
+}
